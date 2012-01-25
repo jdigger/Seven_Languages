@@ -19,7 +19,13 @@ module ActsAsCsv
       @headers = file.gets.chomp.split('|')
       
       file.each do |row|
-        @csv_contents << row.chomp.split('|')
+        @csv_contents << CsvRow.new(row.chomp.split('|'))
+      end
+    end
+    
+    def each(&block)
+      @csv_contents.each do |row|
+        block.call row
       end
     end
     
@@ -31,11 +37,26 @@ module ActsAsCsv
   end
 end
 
+class CsvRow
+  
+  def initialize(items)
+    @row = items
+  end
+  
+  def method_missing name, *args
+    case name
+    when 'one'
+      @row[0]
+    end
+  end
+end
+
 class RubyCsv
   include ActsAsCsv
   acts_as_csv
 end
 
 m = RubyCsv.new
-puts m.headers.inspect
-puts m.csv_contents.inspect
+#puts m.headers.inspect
+#puts m.csv_contents.inspect
+m.each {|row| puts row.one}
