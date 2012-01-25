@@ -45,8 +45,8 @@ class CsvRow
   
   def method_missing name, *args
     case name.to_s
-    when 'one'
-      @row[0]
+      when 'one' then @row[0]
+      when 'two' then @row[1]
     end
   end
 end
@@ -60,3 +60,4 @@ m = RubyCsv.new
 #puts m.headers.inspect
 #puts m.csv_contents.inspect
 m.each {|row| puts row.one}
+m.each {|row| puts row.two}
