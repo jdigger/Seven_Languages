@@ -44,7 +44,7 @@ class CsvRow
   end
   
   def method_missing name, *args
-    case name
+    case name.to_s
     when 'one'
       @row[0]
     end
