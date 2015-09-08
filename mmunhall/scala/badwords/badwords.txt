@@ -1,0 +1,4 @@
+shoot:darn
+Shoot:Darn
+Pucky:Beans
+pucky:beans
